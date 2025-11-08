@@ -35,7 +35,7 @@ export default function AdminLogin() {
         <div className="w-full max-w-sm lg:max-w-md space-y-6 sm:space-y-8">
           <div className="w-[100px] mx-auto h-[100px] rounded-lg mb-10 overflow-hidden relative">
             <Image
-              src="https://cdn-icons-png.flaticon.com/128/18407/18407415.png"
+              src="/logo.png"
               alt="Admin Login"
               fill
               className="object-center"

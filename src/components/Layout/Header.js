@@ -37,54 +37,15 @@ function Header() {
           <div className="flex justify-start items-center gap-x-2">
             <div className="w-6 mx-auto h-6 rounded-lg overflow-hidden relative">
               <Image
-                src="https://cdn-icons-png.flaticon.com/128/18407/18407415.png"
+                src="/logo.png"
                 alt="Admin Login"
                 fill
                 className="object-center"
                 sizes="10px"
               />
             </div>
-            <h1 className="text-lg font-bold text-gray-900">Ruby</h1>
+            <h1 className="text-lg font-bold text-gray-900">Burma Rubies</h1>
           </div>
-
-          <nav className="hidden md:flex items-center gap-x-10">
-            <Link
-              href="#"
-              className="text-xs leading-6 text-black hover:text-gray-600 transition-colors"
-            >
-              Home
-            </Link>
-            <Link
-              href="#"
-              className="text-xs leading-6 text-black hover:text-gray-600 transition-colors"
-            >
-              About
-            </Link>
-            <Link
-              href="#"
-              className="text-xs leading-6 text-black hover:text-gray-600 transition-colors"
-            >
-              Products
-            </Link>
-            <Link
-              href="#"
-              className="text-xs leading-6 text-black hover:text-gray-600 transition-colors"
-            >
-              Contact
-            </Link>
-            <Link
-              href="#"
-              className="text-xs leading-6 text-black hover:text-gray-600 transition-colors"
-            >
-              Support
-            </Link>
-            <Link
-              href="#"
-              className="text-xs leading-6 text-black hover:text-gray-600 transition-colors"
-            >
-              Info
-            </Link>
-          </nav>
 
           <div className="flex justify-end items-center gap-x-4">
             <button

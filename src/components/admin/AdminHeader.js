@@ -67,9 +67,9 @@ export default function AdminHeader() {
       <div className="px-6 py-3">
         <div className="flex justify-between items-center">
           <div className=" flex justify-start items-center gap-x-3">
-            <div className="w-10 mx-auto h-10  overflow-hidden relative">
+            <div className="w-10 mx-auto h-10 rounded-lg  overflow-hidden relative">
               <Image
-                src="https://cdn-icons-png.flaticon.com/128/18407/18407415.png"
+                src="/logo.png"
                 alt="Admin Login"
                 fill
                 className="object-center"
@@ -77,7 +77,7 @@ export default function AdminHeader() {
               />
             </div>
             <h1 className="text-base font-semibold text-gray-900">
-              Ruby Admin Dashboard
+              Burma-rubies
             </h1>
           </div>
           <div className="flex items-center space-x-3">

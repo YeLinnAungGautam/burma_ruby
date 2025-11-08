@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 
 const Footer = () => {
@@ -44,19 +45,21 @@ const Footer = () => {
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-10 lg:gap-8">
           {/* Brand Column (First Column on Desktop) */}
           <div className="col-span-2 md:col-span-1 space-y-4">
-            <div className="flex items-center space-x-2 text-2xl font-bold text-white">
+            <div className=" flex items-center space-x-4 text-2xl font-bold text-white">
               {/* Simple 'R' icon for the Ruby brand */}
-              <svg
-                className="w-6 h-6 text-red-600"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-              >
-                <path d="M10 20l-4-4h8l-4 4zM10 0l4 4H6l4-4zM2 10l4-4v8l-4-4zM18 10l-4-4v8l4-4z" />
-              </svg>
-              <span>Ruby</span>
+              <div className="w-10  h-10 rounded-lg  overflow-hidden relative">
+                <Image
+                  src="/logo.png"
+                  alt="Admin Login"
+                  fill
+                  className="object-center"
+                  sizes="100px"
+                />
+              </div>
+              <p>Burma-rubies</p>
             </div>
             <p className="text-sm font-light text-gray-500">
-              The world's most authentic Burmar Rubies.
+              The world of natural rubies. Buy the most authentic Burmar Rubies.
             </p>
           </div>
 

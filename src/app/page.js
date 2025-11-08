@@ -25,7 +25,7 @@ export default function Home() {
         {/* Main Hero Content */}
         <div className="relative container mx-auto pt-8 md:pt-10 lg:pt-14 text-center max-w-6xl">
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-semibold tracking-tight mb-2 leading-[1.1]">
-            Burmar Rubies
+            Burma Rubies
           </h1>
         </div>
 

@@ -25,7 +25,7 @@ export default function ProductCard({ product }) {
   };
 
   return (
-    <Link href={`/products/${product.slug}`}>
+    <Link href={`/products/${product.sku}`}>
       <div className="group cursor-pointer pb-2 rounded-3xl relative overflow-hidden">
         {/* Animated linear wave overlay */}
         <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">
