@@ -9,6 +9,7 @@ const nextConfig = {
     domains: [
       "localhost",
       "img.freepik.com",
+      "burma-rubies.com",
       // Add other domains you might use
       "images.unsplash.com",
       "plus.unsplash.com",
@@ -19,6 +20,12 @@ const nextConfig = {
         protocol: "http",
         hostname: "localhost",
         port: "3000",
+        pathname: "/uploads/**",
+      },
+      {
+        protocol: "https",
+        hostname: "burma-rubies.com",
+        port: "",
         pathname: "/uploads/**",
       },
       {
