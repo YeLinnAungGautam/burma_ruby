@@ -37,7 +37,7 @@ export async function GET(request) {
         ? {
             ...category.image,
             url: `${
-              process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"
+              process.env.NEXT_PUBLIC_BASE_URL || "https://burma-rubies.com"
             }${category.image.url}`,
           }
         : null,

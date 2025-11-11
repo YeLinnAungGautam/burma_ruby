@@ -71,10 +71,9 @@ export function useAdminLogin() {
       const data = await response.json();
 
       if (data.success) {
-        // localStorage.setItem("adminToken", data.token);
-        // // Optional: Also store user info
-        // localStorage.setItem("adminUser", JSON.stringify(data.user));
         setUser(data.user);
+
+        // Redirect to admin dashboard
         router.push("/admin");
       } else {
         setError(data.error || "Login failed");

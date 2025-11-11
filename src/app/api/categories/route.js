@@ -6,6 +6,9 @@ export async function GET() {
   try {
     await dbConnect();
 
+    const baseUrl =
+      process.env.NEXT_PUBLIC_BASE_URL || "https://burma-rubies.com";
+
     const categories = await Category.find({ isActive: true })
       .sort({ name: 1 })
       .lean();
@@ -16,7 +19,7 @@ export async function GET() {
       image: category.image
         ? {
             ...category.image,
-            url: `http://localhost:3000${category.image.url}`,
+            url: `${baseUrl}${category.image.url}`,
           }
         : null,
     }));
