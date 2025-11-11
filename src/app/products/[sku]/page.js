@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Image from "next/image";
 import Header from "@/components/Layout/Header";
@@ -15,6 +15,7 @@ function Page() {
   const [loading, setLoading] = useState(true);
   const [selectedMedia, setSelectedMedia] = useState(null);
   const [selectedMediaType, setSelectedMediaType] = useState("image");
+  const videoRef = useRef(null); // Add this line
 
   useEffect(() => {
     if (sku) {
@@ -60,6 +61,21 @@ function Page() {
           : []),
       ]
     : [];
+
+  useEffect(() => {
+    if (selectedMediaType === "video" && videoRef.current) {
+      // Request fullscreen
+      if (videoRef.current.requestFullscreen) {
+        videoRef.current.requestFullscreen();
+      } else if (videoRef.current.webkitRequestFullscreen) {
+        videoRef.current.webkitRequestFullscreen(); // Safari
+      } else if (videoRef.current.mozRequestFullScreen) {
+        videoRef.current.mozRequestFullScreen(); // Firefox
+      } else if (videoRef.current.msRequestFullscreen) {
+        videoRef.current.msRequestFullscreen(); // IE/Edge
+      }
+    }
+  }, [selectedMediaType, selectedMedia]);
 
   const formatPrice = (amount) => {
     return new Intl.NumberFormat("en-US", {
@@ -188,6 +204,7 @@ function Page() {
                 )}
                 {selectedMediaType === "video" && selectedMedia?.url && (
                   <video
+                    ref={videoRef}
                     src={selectedMedia.url}
                     controls
                     className="w-full h-full object-contain"
@@ -557,12 +574,12 @@ function Page() {
                   >
                     Treatment
                   </td>
-                  <td className="px-6 py-4 text-sm text-gray-600">Type</td>
+                  <td className="px-6 py-4 text-sm text-gray-600">Heated</td>
                   <td className="px-6 py-4 text-sm font-medium text-gray-900 capitalize">
-                    {product?.treatment.treatmentType}
+                    {product?.treatment.heated ? "Yes" : "No"}
                   </td>
                 </tr>
-                <tr className="hover:bg-gray-50">
+                {/* <tr className="hover:bg-gray-50">
                   <td className="px-6 py-4 text-sm text-gray-600">Heated</td>
                   <td className="px-6 py-4 text-sm font-medium text-gray-900">
                     {product?.treatment.heated ? "Yes" : "No"}
@@ -573,7 +590,7 @@ function Page() {
                   <td className="px-6 py-4 text-sm font-medium text-gray-900">
                     {product?.treatment.description}
                   </td>
-                </tr>
+                </tr> */}
               </tbody>
             </table>
 
@@ -738,12 +755,12 @@ function Page() {
                 </h3>
                 <div className="space-y-2">
                   <div className="flex justify-between py-2">
-                    <span className="text-sm text-gray-600">Type</span>
+                    <span className="text-sm text-gray-600">Heated</span>
                     <span className="text-sm font-medium text-gray-900 capitalize">
-                      {product?.treatment.treatmentType}
+                      {product?.treatment.heated ? "Yes" : "No"}
                     </span>
                   </div>
-                  <div className="flex justify-between py-2">
+                  {/* <div className="flex justify-between py-2">
                     <span className="text-sm text-gray-600">Heated</span>
                     <span className="text-sm font-medium text-gray-900">
                       {product?.treatment.heated ? "Yes" : "No"}
@@ -754,7 +771,7 @@ function Page() {
                     <span className="text-sm font-medium text-gray-900">
                       {product?.treatment.description}
                     </span>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
