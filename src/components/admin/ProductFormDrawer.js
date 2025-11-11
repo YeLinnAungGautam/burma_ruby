@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import Image from "next/image";
 import CustomButton from "@/components/common/CustomButton";
 import { useProducts } from "@/hooks/useProducts";
+import toast from "react-hot-toast";
 
 export default function ProductFormDrawer({
   isOpen,
@@ -108,7 +109,8 @@ export default function ProductFormDrawer({
         setImagePreviews((prev) => prev.filter((_, i) => i !== index));
         // You may want to refetch the product or update local state
       } else {
-        alert("Failed to delete image: " + result.error);
+        // alert("Failed to delete image: " + result.error);
+        toast.error("Failed to delete image: " + result.error);
       }
     } else {
       // If it's a newly selected file (not yet uploaded)
@@ -143,7 +145,8 @@ export default function ProductFormDrawer({
       if (result.success) {
         setVideoPreviews((prev) => prev.filter((_, i) => i !== index));
       } else {
-        alert("Failed to delete video: " + result.error);
+        // alert("Failed to delete video: " + result.error);
+        toast.error("Failed to delete video: " + result.error);
       }
     } else {
       const currentFiles = watch("videos");
@@ -171,7 +174,8 @@ export default function ProductFormDrawer({
       if (result.success) {
         setCertPreviews((prev) => prev.filter((_, i) => i !== index));
       } else {
-        alert("Failed to delete certificate: " + result.error);
+        // alert("Failed to delete certificate: " + result.error);
+        toast.error("Failed to delete certificate: " + result.error);
       }
     } else {
       const currentFiles = watch("certificateImages");

@@ -7,6 +7,7 @@ import ProductTable from "@/components/admin/ProductTable";
 import ProductFormDrawer from "@/components/admin/ProductFormDrawer";
 import ProductSearchBar from "@/components/admin/ProductSearchBar";
 import CustomButton from "@/components/common/CustomButton";
+import toast from "react-hot-toast";
 
 export default function ProductsPage() {
   const {
@@ -69,11 +70,15 @@ export default function ProductsPage() {
 
     if (result.success) {
       closeDrawer();
-      alert(
+      // alert(
+      //   productId ? "Ruby updated successfully!" : "Ruby created successfully!"
+      // );
+      toast.success(
         productId ? "Ruby updated successfully!" : "Ruby created successfully!"
       );
     } else {
-      alert(result.error || "Operation failed");
+      // alert(result.error || "Operation failed");
+      toast.error(result.error || "Operation failed");
     }
   };
 
@@ -82,9 +87,11 @@ export default function ProductsPage() {
 
     const result = await deleteProduct(id);
     if (result.success) {
-      alert("Ruby deleted successfully!");
+      // alert("Ruby deleted successfully!");
+      toast.success("Ruby deleted successfully!");
     } else {
-      alert(result.error || "Delete failed");
+      // alert(result.error || "Delete failed");
+      toast.error(result.error || "Delete failed");
     }
   };
 
@@ -101,9 +108,11 @@ export default function ProductsPage() {
 
     const result = await approveProduct(id, action, rejectionReason);
     if (result.success) {
-      alert(`Ruby ${message}d successfully!`);
+      // alert(`Ruby ${message}d successfully!`);
+      toast.success(`Ruby ${message}d successfully!`);
     } else {
-      alert(result.error || `Failed to ${message} ruby`);
+      // alert(result.error || `Failed to ${message} ruby`);
+      toast.error(result.error || `Failed to ${message} ruby`);
     }
   };
 

@@ -7,6 +7,7 @@ import CategoryCard from "@/components/admin/CategoryCard";
 import CategoryFormDrawer from "@/components/admin/CategoryFormDrawer";
 import SearchBar from "@/components/admin/SearchBar";
 import CustomButton from "@/components/common/CustomButton";
+import toast from "react-hot-toast";
 
 export default function CategoriesPage() {
   const {
@@ -48,9 +49,11 @@ export default function CategoriesPage() {
 
     if (result.success) {
       closeDrawer();
-      alert(categoryId ? "Category updated!" : "Category created!");
+      // alert(categoryId ? "Category updated!" : "Category created!");
+      toast.success(categoryId ? "Category updated!" : "Category created!");
     } else {
-      alert(result.error || "Operation failed");
+      // alert(result.error || "Operation failed");
+      toast.error(result.error || "Operation failed");
     }
   };
 
@@ -60,9 +63,11 @@ export default function CategoriesPage() {
 
     const result = await deleteCategory(id);
     if (result.success) {
-      alert("Category deleted!");
+      // alert("Category deleted!");
+      toast.success("Category deleted!");
     } else {
-      alert(result.error || "Delete failed");
+      // alert(result.error || "Delete failed");
+      toast.error(result.error || "Delete failed");
     }
   };
 

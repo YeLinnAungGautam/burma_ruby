@@ -5,10 +5,12 @@ import { useAdminDashboard } from "@/hooks/useAdminDashboard";
 import DashboardStats from "../../components/admin/DashboardStats";
 import QuickActions from "../../components/admin/QuickActions";
 import LoadingSkeleton from "../../components/common/LoadingSkeleton";
+import { useAuth } from "@/context/AuthContext";
 
 export default function AdminDashboard() {
   const { stats, loading, error } = useAdminDashboard();
   const router = useRouter();
+  const { isSuperAdmin } = useAuth();
 
   if (loading) {
     return <LoadingSkeleton />;
@@ -41,7 +43,7 @@ export default function AdminDashboard() {
         </p>
       </div>
 
-      <DashboardStats stats={stats} />
+      {isSuperAdmin && <DashboardStats stats={stats} />}
       <QuickActions router={router} />
     </div>
   );

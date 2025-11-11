@@ -30,6 +30,10 @@ export async function GET(request) {
 
     const { searchParams } = new URL(request.url);
 
+    // Get user info from headers
+    const userId = request.headers.get("x-user-id");
+    const userRole = request.headers.get("x-user-role");
+
     // Filters
     const status = searchParams.get("status");
     const moderationStatus = searchParams.get("moderationStatus");
@@ -52,6 +56,11 @@ export async function GET(request) {
 
     // Build query
     let query = {};
+
+    // Role-based filtering: if not superadmin, only show products created by this user
+    if (userRole !== "superadmin" && userId) {
+      query.createdBy = userId;
+    }
 
     if (status) query.status = status;
     if (moderationStatus) query["moderation.status"] = moderationStatus;
