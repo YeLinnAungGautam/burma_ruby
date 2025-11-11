@@ -26,6 +26,9 @@ function Page() {
     try {
       const response = await fetch(`/api/products/${sku}`);
       const data = await response.json();
+      console.log("====================================");
+      console.log(data);
+      console.log("====================================");
 
       if (data.success) {
         setProduct(data.data);
