@@ -103,7 +103,8 @@ export async function GET(request) {
     const total = await Product.countDocuments(query);
 
     // Add full URLs to media
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+    const baseUrl =
+      process.env.NEXT_PUBLIC_BASE_URL || "https://burma-rubies.com";
     const productsWithUrls = products.map((product) => ({
       ...product,
       images: product.images?.map((img) => ({

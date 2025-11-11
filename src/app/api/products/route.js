@@ -55,7 +55,8 @@ export async function GET(request) {
     ]);
 
     // Fixed: Using environment variable and correct field names
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+    const baseUrl =
+      process.env.NEXT_PUBLIC_BASE_URL || "https://burma-rubies.com";
     const productsWithUrls = products.map((product) => ({
       ...product,
       images: product.images?.map((img) => ({

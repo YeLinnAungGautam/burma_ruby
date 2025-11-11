@@ -37,7 +37,8 @@ export async function GET(request, { params }) {
     }
 
     // Construct full URLs for media files
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+    const baseUrl =
+      process.env.NEXT_PUBLIC_BASE_URL || "https://burma-rubies.com";
 
     const productWithUrls = {
       ...product,
