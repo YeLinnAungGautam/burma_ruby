@@ -87,27 +87,22 @@ export default function ProductCard({ product }) {
             <span>{product.carat} ct</span>
             <span className="text-gray-300">•</span>
             <span className="capitalize">{product.shape}</span>
-            {product.clarity?.grade && (
-              <>
-                <span className="text-gray-300">•</span>
-                <span>{product.clarity.grade}</span>
-              </>
-            )}
           </div>
 
           {/* Origin */}
           {product.origin?.country && (
             <p className="text-xs text-gray-500">
-              {product.origin.region}, {product.origin.country}
+              {product.origin.region}
+              {product.origin.region && ", "} {product.origin.country}
             </p>
           )}
 
           {/* Price */}
           <div className="pt-1">
-            <p className="text-xl font-semibold text-gray-900 line-clamp-1 group-hover:text-ruby-600 transition-colors">
+            {/* <p className="text-xl font-semibold text-gray-900 line-clamp-1 group-hover:text-ruby-600 transition-colors">
               {formatPrice(product.price.amount, product.price.currency)}
-            </p>
-            {product.price.pricePerCarat && (
+            </p> */}
+            {/* {product.price.pricePerCarat && (
               <p className="text-xs text-gray-500">
                 {formatPrice(
                   product.price.pricePerCarat,
@@ -115,7 +110,7 @@ export default function ProductCard({ product }) {
                 )}
                 /ct
               </p>
-            )}
+            )} */}
           </div>
         </div>
       </div>

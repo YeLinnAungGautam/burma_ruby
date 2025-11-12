@@ -9,30 +9,17 @@ const Footer = () => {
   // Data structure for the main link columns
   const footerLinks = [
     {
-      title: "Shop",
-      links: [
-        { name: "Natural Rubies", href: "/products/natural" },
-        { name: "Heated Rubies", href: "/products/heated" },
-        { name: "Heated Sapphires", href: "/products/sapphire" },
-        { name: "View All Gems", href: "/products" },
-      ],
-    },
-    {
       title: "Company",
       links: [
         { name: "About Ruby", href: "/about" },
         { name: "Our Certification", href: "/certification" },
-        { name: "Careers", href: "/careers" },
-        // Requested link to Apple website (using a generic link)
-        { name: "Design Inspiration", href: "https://www.apple.com/" },
       ],
     },
     {
       title: "Support",
       links: [
         { name: "Contact Us", href: "/contact" },
-        { name: "24/7 Chat Support", href: "/support/chat" },
-        { name: "Shipping & Returns", href: "/support/shipping" },
+
         { name: "Schedule Meeting", href: "/schedule" },
       ],
     },

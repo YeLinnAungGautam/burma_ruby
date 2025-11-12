@@ -64,7 +64,7 @@ export default function CSSDiamondBackground() {
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 -z-10 overflow-hidden bg-linear-to-br from-red-900 via-pink-900 to-purple-900"
+      className="hidden md:fixed inset-0 -z-10 overflow-hidden bg-linear-to-br from-red-900 via-pink-900 to-purple-900"
     />
   );
 }

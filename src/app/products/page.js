@@ -333,16 +333,6 @@ function ProductCarouselCard({ product }) {
             </button>
           </Link>
         </div>
-
-        {/* Treatment Info */}
-        {product.treatment && (
-          <div className="text-xs text-gray-500 bg-gray-50 rounded-xl p-2.5">
-            <span className="font-medium">Treatment: </span>
-            {product.treatment.heated ? "Heated" : "Unheated"}
-            {product.treatment.treatmentType &&
-              ` (${product.treatment.treatmentType.replace("-", " ")})`}
-          </div>
-        )}
       </div>
     </div>
   );

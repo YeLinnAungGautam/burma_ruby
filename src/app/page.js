@@ -50,7 +50,7 @@ export default function Home() {
       </section>
 
       {/* Trust Signals - Minimal Cards */}
-      <OptionCard />
+      {/* <OptionCard /> */}
 
       <Footer />
     </div>

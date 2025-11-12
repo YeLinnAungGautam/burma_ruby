@@ -178,8 +178,8 @@ export default function ProductHome() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <div className=" bg-linear-to-b  from-gray-50 to-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 md:pt-3">
+      <div className="bg-gradient-to-b from-gray-50 to-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 md:pt-3 pb-10">
           <div className="text-center block md:hidden">
             <h1 className="text-5xl md:text-7xl lg:text-8xl max-w-2xl mx-auto font-semibold tracking-tight leading-[1.1] mb-4">
               Burma Rubies
@@ -189,38 +189,35 @@ export default function ProductHome() {
               stone is certified and verified for authenticity.
             </p>
           </div>
+        </div>
+      </div>
 
-          {/* Search Bar */}
-          <div className="mt-10 max-w-2xl flex lg:hidden justify-center items-center mx-auto">
-            {/* Mobile Filter Button - Floating */}
-            <div className="flex px-4">
-              <div className="w-full mx-auto flex justify-between items-center">
-                <button
-                  onClick={() => setShowFilters(true)}
-                  className="bg-white/50 backdrop-blur-lg rounded-full shadow-lg border border-black/20 flex items-center justify-center gap-2 py-4 w-[80vw]"
-                >
-                  <AdjustmentsHorizontalIcon className="w-6 h-6" />
-                  <span>Filters</span>
-                  {hasActiveFilters && (
-                    <span className="bg-red-600 text-white text-xs px-2 py-1 rounded-full">
-                      {
-                        [
-                          selectedCategory,
-                          selectedColor,
-                          selectedCarat,
-                          selectedShape,
-                          selectedOrigin,
-                          priceRange.min,
-                          priceRange.max,
-                          searchQuery,
-                        ].filter(Boolean).length
-                      }
-                    </span>
-                  )}
-                </button>
-              </div>
-            </div>
-          </div>
+      {/* Sticky Filter Button - Mobile */}
+      <div className="lg:hidden sticky top-16 z-40">
+        <div className="max-w-2xl mx-auto px-4 ">
+          <button
+            onClick={() => setShowFilters(true)}
+            className="w-full bg-white/60 backdrop-blur-lg rounded-full shadow-lg border border-gray-200 flex items-center justify-center gap-2 py-4 hover:shadow-xl transition-all active:scale-95"
+          >
+            <AdjustmentsHorizontalIcon className="w-6 h-6 text-gray-700" />
+            <span className="font-medium text-gray-900">Filters</span>
+            {hasActiveFilters && (
+              <span className="bg-red-600 text-white text-xs px-2.5 py-1 rounded-full font-semibold">
+                {
+                  [
+                    selectedCategory,
+                    selectedColor,
+                    selectedCarat,
+                    selectedShape,
+                    selectedOrigin,
+                    priceRange.min,
+                    priceRange.max,
+                    searchQuery,
+                  ].filter(Boolean).length
+                }
+              </span>
+            )}
+          </button>
         </div>
       </div>
 
@@ -272,7 +269,7 @@ export default function ProductHome() {
                     <span className="font-semibold text-gray-900">
                       {products.length}
                     </span>{" "}
-                    {products.length === 1 ? "red" : "rubies"} found
+                    {products.length === 1 ? "ruby" : "rubies"} found
                   </>
                 )}
               </p>
@@ -281,7 +278,7 @@ export default function ProductHome() {
             {/* Loading State */}
             {loading && (
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                {[...Array(6)].map((_, i) => (
+                {[...Array(8)].map((_, i) => (
                   <div
                     key={i}
                     className="aspect-square bg-gray-100 rounded-3xl animate-pulse"
