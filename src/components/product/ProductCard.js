@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { BadgeCheckIcon } from "lucide-react";
 
 export default function ProductCard({ product }) {
   const mainImage = product.images?.[0] || {
@@ -22,7 +23,7 @@ export default function ProductCard({ product }) {
     const badges = [];
     badges.push(product.treatment?.heated ? "Heated" : "Natural");
 
-    if (product.features?.certified) badges.push("Certified");
+    // if (product.features?.certified) badges.push("Certified");
     return badges;
   };
 
@@ -52,7 +53,7 @@ export default function ProductCard({ product }) {
                 .map((badge, index) => (
                   <span
                     key={index}
-                    className="inline-block bg-linear-to-br from-red-600 to-pink-800 backdrop-blur-xl text-white px-3 py-1 rounded-full text-xs font-medium shadow-lg"
+                    className="inline-block bg-red-800/50 backdrop-blur-xl text-white px-3 py-1 rounded-full text-xs font-medium shadow-lg"
                   >
                     {badge}
                   </span>
@@ -73,11 +74,17 @@ export default function ProductCard({ product }) {
         {/* Content */}
         <div className="space-y-1 px-2 pb-1 relative z-20">
           {/* Color - Using Apple's product color naming style */}
-          {product.color?.grade && (
-            <p className="text-xs font-medium text-ruby-600 uppercase tracking-wide">
-              {product.color.grade.replace("-", " ")}
-            </p>
-          )}
+          <div className="flex items-center gap-x-1">
+            {product.color?.grade && (
+              <p className="text-xs font-medium text-ruby-600 uppercase tracking-wide">
+                {product.color.grade.replace("-", " ")}
+              </p>
+            )}
+
+            {product.features?.certified && (
+              <BadgeCheckIcon className="h-4 w-4 text-white bg-green-500 rounded-full" />
+            )}
+          </div>
 
           {/* Product Name */}
           <h3 className="text-lg font-semibold text-gray-900 line-clamp-1 group-hover:text-ruby-600 transition-colors">
