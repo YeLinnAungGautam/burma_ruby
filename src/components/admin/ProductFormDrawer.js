@@ -17,6 +17,7 @@ export default function ProductFormDrawer({
 }) {
   const [imagePreviews, setImagePreviews] = useState([]);
   const [videoPreviews, setVideoPreviews] = useState([]);
+  const [videoMetadata, setVideoMetadata] = useState([]);
   const [certPreviews, setCertPreviews] = useState([]);
   const [categories, setCategories] = useState([]);
   const [loadingCategories, setLoadingCategories] = useState(false);
@@ -85,6 +86,7 @@ export default function ProductFormDrawer({
 
   const imageFiles = watch("images");
   const videoFiles = watch("videos");
+  const videoThumbnailFiles = watch("videoThumbnails");
   const certFiles = watch("certificateImages");
   const hasCertificate = watch("hasCertificate");
   const treatmentHeated = watch("treatmentHeated");
@@ -107,9 +109,7 @@ export default function ProductFormDrawer({
       if (result.success) {
         // Remove from previews
         setImagePreviews((prev) => prev.filter((_, i) => i !== index));
-        // You may want to refetch the product or update local state
       } else {
-        // alert("Failed to delete image: " + result.error);
         toast.error("Failed to delete image: " + result.error);
       }
     } else {
@@ -119,7 +119,6 @@ export default function ProductFormDrawer({
         (_, i) => i !== index
       );
 
-      // Create a new FileList-like object
       const dataTransfer = new DataTransfer();
       newFileList.forEach((file) => dataTransfer.items.add(file));
 
@@ -129,8 +128,6 @@ export default function ProductFormDrawer({
   };
 
   const handleDeleteVideo = async (index) => {
-    const videoToDelete = videoPreviews[index];
-
     if (
       editingProduct &&
       editingProduct.videos &&
@@ -144,11 +141,12 @@ export default function ProductFormDrawer({
 
       if (result.success) {
         setVideoPreviews((prev) => prev.filter((_, i) => i !== index));
+        setVideoMetadata((prev) => prev.filter((_, i) => i !== index));
       } else {
-        // alert("Failed to delete video: " + result.error);
         toast.error("Failed to delete video: " + result.error);
       }
     } else {
+      // Remove from new video files
       const currentFiles = watch("videos");
       const newFileList = Array.from(currentFiles).filter(
         (_, i) => i !== index
@@ -156,8 +154,47 @@ export default function ProductFormDrawer({
       const dataTransfer = new DataTransfer();
       newFileList.forEach((file) => dataTransfer.items.add(file));
       setValue("videos", dataTransfer.files);
+
+      // Remove from thumbnails if exists
+      const currentThumbnails = watch("videoThumbnails");
+      if (currentThumbnails && currentThumbnails.length > 0) {
+        const newThumbnailList = Array.from(currentThumbnails).filter(
+          (_, i) => i !== index
+        );
+        const thumbnailTransfer = new DataTransfer();
+        newThumbnailList.forEach((file) => thumbnailTransfer.items.add(file));
+        setValue("videoThumbnails", thumbnailTransfer.files);
+      }
+
       setVideoPreviews((prev) => prev.filter((_, i) => i !== index));
+      setVideoMetadata((prev) => prev.filter((_, i) => i !== index));
     }
+  };
+
+  const handleVideoMetadataChange = (index, field, value) => {
+    setVideoMetadata((prev) => {
+      const newMetadata = [...prev];
+      if (!newMetadata[index]) {
+        newMetadata[index] = { description: "", duration: "" };
+      }
+      newMetadata[index][field] = value;
+      return newMetadata;
+    });
+  };
+
+  const handleVideoThumbnailChange = (index, file) => {
+    const currentThumbnails = watch("videoThumbnails") || [];
+    const thumbnailArray = Array.from(currentThumbnails);
+
+    // Update or add thumbnail at specific index
+    thumbnailArray[index] = file;
+
+    const dataTransfer = new DataTransfer();
+    thumbnailArray.forEach((f) => {
+      if (f) dataTransfer.items.add(f);
+    });
+
+    setValue("videoThumbnails", dataTransfer.files);
   };
 
   const handleDeleteCertificate = async (index) => {
@@ -174,7 +211,6 @@ export default function ProductFormDrawer({
       if (result.success) {
         setCertPreviews((prev) => prev.filter((_, i) => i !== index));
       } else {
-        // alert("Failed to delete certificate: " + result.error);
         toast.error("Failed to delete certificate: " + result.error);
       }
     } else {
@@ -196,10 +232,8 @@ export default function ProductFormDrawer({
       try {
         const response = await fetch("/api/categories");
         const data = await response.json();
-        console.log(data.categories, "this is category");
 
         if (data.categories && data.categories.length > 0) {
-          // Filter only active categories
           const activeCategories = data.categories.filter(
             (cat) => cat.isActive
           );
@@ -217,7 +251,7 @@ export default function ProductFormDrawer({
     }
   }, [isOpen]);
 
-  // Handle previews
+  // Handle image previews
   useEffect(() => {
     if (imageFiles && imageFiles.length > 0) {
       const previews = [];
@@ -238,16 +272,43 @@ export default function ProductFormDrawer({
     }
   }, [imageFiles, editingProduct]);
 
+  // Handle video previews and metadata
   useEffect(() => {
     if (videoFiles && videoFiles.length > 0) {
-      setVideoPreviews(Array.from(videoFiles).map((f) => f.name));
+      const previews = Array.from(videoFiles).map((f) => ({
+        name: f.name,
+        size: f.size,
+        type: f.type,
+      }));
+      setVideoPreviews(previews);
+
+      // Initialize metadata for new videos
+      const metadata = Array.from(videoFiles).map(() => ({
+        description: "",
+        duration: "",
+      }));
+      setVideoMetadata(metadata);
     } else if (editingProduct?.videos) {
-      setVideoPreviews(editingProduct.videos.map((v) => v.url));
+      const previews = editingProduct.videos.map((v) => ({
+        url: v.url,
+        name: v.filename || v.url.split("/").pop(),
+        thumbnail: v.thumbnail,
+      }));
+      setVideoPreviews(previews);
+
+      // Load existing metadata
+      const metadata = editingProduct.videos.map((v) => ({
+        description: v.description || "",
+        duration: v.duration || "",
+      }));
+      setVideoMetadata(metadata);
     } else {
       setVideoPreviews([]);
+      setVideoMetadata([]);
     }
   }, [videoFiles, editingProduct]);
 
+  // Handle certificate previews
   useEffect(() => {
     if (certFiles && certFiles.length > 0) {
       const previews = [];
@@ -331,6 +392,7 @@ export default function ProductFormDrawer({
       reset();
       setImagePreviews([]);
       setVideoPreviews([]);
+      setVideoMetadata([]);
       setCertPreviews([]);
     }
   }, [editingProduct, reset, isOpen]);
@@ -445,19 +507,50 @@ export default function ProductFormDrawer({
       })
     );
 
-    // Files
+    // Files - Images
     if (data.images && data.images.length > 0) {
       Array.from(data.images).forEach((file) => {
         formData.append(editingProduct ? "newImages" : "images", file);
       });
     }
 
+    // Files - Videos with metadata
     if (data.videos && data.videos.length > 0) {
-      Array.from(data.videos).forEach((file) => {
+      Array.from(data.videos).forEach((file, index) => {
         formData.append(editingProduct ? "newVideos" : "videos", file);
+
+        // Append video metadata
+        const prefix = editingProduct ? "newVideo" : "video";
+        if (videoMetadata[index]) {
+          if (videoMetadata[index].description) {
+            formData.append(
+              `${prefix}Description_${index}`,
+              videoMetadata[index].description
+            );
+          }
+          if (videoMetadata[index].duration) {
+            formData.append(
+              `${prefix}Duration_${index}`,
+              videoMetadata[index].duration
+            );
+          }
+        }
       });
     }
 
+    // Video thumbnails
+    if (data.videoThumbnails && data.videoThumbnails.length > 0) {
+      Array.from(data.videoThumbnails).forEach((file) => {
+        if (file) {
+          formData.append(
+            editingProduct ? "newVideoThumbnails" : "videoThumbnails",
+            file
+          );
+        }
+      });
+    }
+
+    // Certificate images
     if (data.certificateImages && data.certificateImages.length > 0) {
       Array.from(data.certificateImages).forEach((file) => {
         formData.append(
@@ -1126,6 +1219,7 @@ export default function ProductFormDrawer({
                             className="relative aspect-square rounded-lg "
                           >
                             <button
+                              type="button"
                               onClick={() => handleDeleteCertificate(index)}
                               className="absolute top-0 -right-2 bg-red-500 border border-red-500 text-white px-1 py-1 rounded-full z-10"
                             >
@@ -1272,6 +1366,7 @@ export default function ProductFormDrawer({
                         className="relative aspect-square rounded-lg"
                       >
                         <button
+                          type="button"
                           onClick={() => handleDeleteImage(index)}
                           className="absolute top-0 -right-2 bg-red-500 border border-red-500 text-white px-1 py-1 rounded-full z-10"
                         >
@@ -1335,35 +1430,118 @@ export default function ProductFormDrawer({
                 </label>
 
                 {videoPreviews.length > 0 && (
-                  <div className="mt-3 space-y-1">
+                  <div className="mt-3 space-y-3">
                     {videoPreviews.map((preview, index) => (
                       <div
                         key={index}
-                        className="text-xs text-gray-600 relative bg-gray-100 rounded px-3 py-2"
+                        className="bg-white border border-gray-200 rounded-lg p-4 space-y-3"
                       >
-                        <button
-                          type="button"
-                          onClick={() => handleDeleteVideo(index)}
-                          className="absolute top-0 -right-2 hover:text-red-700 bg-red-500 border border-red-500 text-white px-1 py-1 rounded-full z-10"
-                        >
-                          <svg
-                            className="w-3 h-3"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
+                        <div className="flex items-start justify-between">
+                          <div className="flex items-center space-x-2 flex-1">
+                            <svg
+                              className="w-5 h-5 text-red-500 flex-shrink-0"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
+                              />
+                            </svg>
+                            <span className="text-sm text-gray-700 truncate">
+                              {preview.name || preview.url?.split("/").pop()}
+                            </span>
+                          </div>
+                          <button
+                            type="button"
+                            onClick={() => handleDeleteVideo(index)}
+                            className="ml-2 bg-red-500 hover:bg-red-600 text-white p-1.5 rounded-full transition-colors flex-shrink-0"
                           >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M6 18L18 6M6 6l12 12"
+                            <svg
+                              className="w-3 h-3"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M6 18L18 6M6 6l12 12"
+                              />
+                            </svg>
+                          </button>
+                        </div>
+
+                        {/* Video metadata inputs */}
+                        <div className="space-y-2">
+                          <input
+                            type="text"
+                            placeholder="Video description (optional)"
+                            value={videoMetadata[index]?.description || ""}
+                            onChange={(e) =>
+                              handleVideoMetadataChange(
+                                index,
+                                "description",
+                                e.target.value
+                              )
+                            }
+                            className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                          />
+
+                          <div className="grid grid-cols-2 gap-2">
+                            <input
+                              type="number"
+                              placeholder="Duration (seconds)"
+                              value={videoMetadata[index]?.duration || ""}
+                              onChange={(e) =>
+                                handleVideoMetadataChange(
+                                  index,
+                                  "duration",
+                                  e.target.value
+                                )
+                              }
+                              className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
                             />
-                          </svg>
-                        </button>
-                        Video {index + 1}:{" "}
-                        {typeof preview === "string"
-                          ? preview.split("/").pop()
-                          : preview}
+
+                            <div>
+                              <input
+                                type="file"
+                                accept="image/*"
+                                onChange={(e) =>
+                                  handleVideoThumbnailChange(
+                                    index,
+                                    e.target.files[0]
+                                  )
+                                }
+                                className="hidden"
+                                id={`video-thumbnail-${index}`}
+                              />
+                              <label
+                                htmlFor={`video-thumbnail-${index}`}
+                                className="flex items-center justify-center w-full px-3 py-2 text-sm border border-gray-300 rounded-lg hover:border-red-500 hover:text-red-500 cursor-pointer transition-colors"
+                              >
+                                <svg
+                                  className="w-4 h-4 mr-1"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  viewBox="0 0 24 24"
+                                >
+                                  <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth={2}
+                                    d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                                  />
+                                </svg>
+                                Thumbnail
+                              </label>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     ))}
                   </div>

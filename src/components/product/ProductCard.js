@@ -19,7 +19,7 @@ export default function ProductCard({ product }) {
   const getBadges = () => {
     const badges = [];
     if (product.features?.pigeonBlood) badges.push("Pigeon Blood");
-    if (product.features?.unheated) badges.push("Unheated");
+
     if (product.features?.certified) badges.push("Certified");
     return badges;
   };
@@ -79,7 +79,7 @@ export default function ProductCard({ product }) {
 
           {/* Product Name */}
           <h3 className="text-lg font-semibold text-gray-900 line-clamp-1 group-hover:text-ruby-600 transition-colors">
-            {product.sku}
+            {product.name}
           </h3>
 
           {/* Specs - Minimalist approach */}

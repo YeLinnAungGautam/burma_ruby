@@ -8,6 +8,7 @@ import Footer from "@/components/Layout/Footer";
 import CustomButton from "@/components/common/CustomButton";
 import Link from "next/link";
 import FooterBar from "@/components/Layout/FooterBar";
+import ProductHome from "@/components/product/ProductHome";
 
 export default function Home() {
   return (
@@ -19,7 +20,7 @@ export default function Home() {
       <CSSDiamondBackground />
 
       {/* Hero Section - Apple Style */}
-      <section className="relative min-h-[50vh] flex flex-col items-center justify-center text-white overflow-hidden pt-20">
+      <section className="relative min-h-[50vh] hidden md:flex flex-col items-center justify-center text-white overflow-hidden pt-20">
         <div className="absolute inset-0"></div>
 
         {/* Main Hero Content */}
@@ -39,24 +40,10 @@ export default function Home() {
       </section>
 
       {/* Featured Products - Clean Section */}
-      <section className="relative py-12 md:py-14 lg:py-16 bg-white">
-        <div className="container mx-auto px-6 max-w-6xl">
-          <div className="text-center mb-8">
-            <h2 className="text-3xl md:text-4xl lg:text-6xl font-semibold tracking-tight text-gray-900 mb-3 md:mb-4 lg:mb-6">
-              Featured Collection
-            </h2>
-            <p className=" text-base md:text-base lg:text-lg font-light text-gray-600 max-w-2xl mx-auto">
-              Handpicked selection of our finest rubies <br />
-              <Link
-                href="/products"
-                className="text-red-600 underline hover:text-red-700 transition-colors"
-              >
-                View All Products
-              </Link>
-            </p>
-          </div>
+      <section className="relative  bg-white">
+        <div className="container mx-auto px-6 ">
           <Suspense fallback={<ProductGridSkeleton />}>
-            <FeaturedProducts />
+            <ProductHome />
             {/* <ProductGridSkeleton /> */}
           </Suspense>
         </div>

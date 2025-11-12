@@ -270,12 +270,36 @@ export async function POST(request) {
       }
     }
 
+    // Handle multiple videos with proper structure
     const videos = [];
     const videoFiles = formData.getAll("videos");
-    for (const file of videoFiles) {
+
+    for (let i = 0; i < videoFiles.length; i++) {
+      const file = videoFiles[i];
       if (file && file.size > 0) {
         const videoData = await saveFile(file, "products/videos");
-        videos.push(videoData);
+
+        // Get additional video metadata if provided
+        const videoDescription = formData.get(`videoDescription_${i}`);
+        const videoDuration = formData.get(`videoDuration_${i}`);
+
+        videos.push({
+          url: videoData.url,
+          filename: videoData.filename,
+          description: videoDescription || "",
+          duration: videoDuration ? parseFloat(videoDuration) : undefined,
+          thumbnail: "", // Will be set if thumbnail file is provided
+        });
+      }
+    }
+
+    // Handle video thumbnails if uploaded as separate files
+    const thumbnailFiles = formData.getAll("videoThumbnails");
+    for (let i = 0; i < thumbnailFiles.length; i++) {
+      const file = thumbnailFiles[i];
+      if (file && file.size > 0 && videos[i]) {
+        const thumbnailData = await saveFile(file, "products/thumbnails");
+        videos[i].thumbnail = thumbnailData.url;
       }
     }
 
@@ -500,12 +524,42 @@ export async function PUT(request) {
       }
     }
 
-    // Handle new videos
+    // Handle new videos with proper structure
     const newVideoFiles = formData.getAll("newVideos");
-    for (const file of newVideoFiles) {
+
+    for (let i = 0; i < newVideoFiles.length; i++) {
+      const file = newVideoFiles[i];
       if (file && file.size > 0) {
         const videoData = await saveFile(file, "products/videos");
-        product.videos.push(videoData);
+
+        // Get additional video metadata if provided
+        const videoDescription = formData.get(`newVideoDescription_${i}`);
+        const videoDuration = formData.get(`newVideoDuration_${i}`);
+
+        const videoEntry = {
+          url: videoData.url,
+          filename: videoData.filename,
+          description: videoDescription || "",
+          duration: videoDuration ? parseFloat(videoDuration) : undefined,
+          thumbnail: "",
+        };
+
+        product.videos.push(videoEntry);
+      }
+    }
+
+    // Handle new video thumbnails
+    const newThumbnailFiles = formData.getAll("newVideoThumbnails");
+    const videoStartIndex = product.videos.length - newVideoFiles.length;
+
+    for (let i = 0; i < newThumbnailFiles.length; i++) {
+      const file = newThumbnailFiles[i];
+      if (file && file.size > 0) {
+        const thumbnailData = await saveFile(file, "products/thumbnails");
+        const videoIndex = videoStartIndex + i;
+        if (product.videos[videoIndex]) {
+          product.videos[videoIndex].thumbnail = thumbnailData.url;
+        }
       }
     }
 
@@ -599,6 +653,10 @@ export async function DELETE(request) {
     }
     for (const video of product.videos) {
       await deleteFile(video.url);
+      // Also delete thumbnail if it exists
+      if (video.thumbnail) {
+        await deleteFile(video.thumbnail);
+      }
     }
     if (product.certification?.certificateImages) {
       for (const cert of product.certification.certificateImages) {

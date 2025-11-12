@@ -325,55 +325,6 @@ function Page() {
                 </p>
               </div>
 
-              {/* Key Features */}
-              <div className="grid grid-cols-2 gap-3">
-                {product?.features?.pigeonBlood && (
-                  <div className="bg-red-50 rounded-xl p-4">
-                    <p className="text-xs text-red-600 font-medium mb-1">
-                      Premium Quality
-                    </p>
-                    <p className="text-sm font-semibold text-gray-900">
-                      Pigeon Blood
-                    </p>
-                  </div>
-                )}
-                {product?.features?.burmeseOrigin && (
-                  <div className="bg-amber-50 rounded-xl p-4">
-                    <p className="text-xs text-amber-600 font-medium mb-1">
-                      Origin
-                    </p>
-                    <p className="text-sm font-semibold text-gray-900">
-                      {product?.origin?.country}
-                    </p>
-                  </div>
-                )}
-                {product?.features.certified && (
-                  <div className="bg-blue-50 rounded-xl p-4">
-                    <p className="text-xs text-blue-600 font-medium mb-1">
-                      Certified By
-                    </p>
-                    <p className="text-sm font-semibold text-gray-900">
-                      {product?.certification.lab}
-                    </p>
-                  </div>
-                )}
-                {product?.features.eyeClean && (
-                  <div className="bg-green-50 rounded-xl p-4">
-                    <p className="text-xs text-green-600 font-medium mb-1">
-                      Clarity
-                    </p>
-                    <p className="text-sm font-semibold text-gray-900">
-                      Eye Clean
-                    </p>
-                  </div>
-                )}
-              </div>
-
-              {/* CTA Button */}
-              {/* <button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-4 px-6 rounded-full transition-colors text-lg">
-                Add to Collection
-              </button> */}
-
               {/* SKU */}
               <p className="text-sm text-gray-500 text-center">
                 SKU: {product?.sku}

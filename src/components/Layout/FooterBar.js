@@ -1,11 +1,12 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Home, MessageCircle, User, Gem } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 
 function FooterBar() {
   const [activeTab, setActiveTab] = useState("home");
   const router = useRouter();
+  const pathname = usePathname(); // Use usePathname hook instead of router.pathname
 
   const tabs = [
     { id: "home", icon: Home, path: "/" },
@@ -15,18 +16,29 @@ function FooterBar() {
   ];
 
   const handleTabClick = (tabId) => {
-    router.push(tabs.find((tab) => tab.id === tabId).path);
-    setActiveTab(tabId);
+    const tab = tabs.find((tab) => tab.id === tabId);
+    if (tab) {
+      router.push(tab.path);
+      setActiveTab(tabId);
+    }
   };
 
+  // Update active tab based on current pathname
+  useEffect(() => {
+    const activeTab = tabs.find((tab) => tab.path === pathname);
+    if (activeTab) {
+      setActiveTab(activeTab.id);
+    }
+  }, [pathname]); // Only depend on pathname
+
   return (
-    <div className="fixed  w-full z-40 bottom-3">
+    <div className="fixed w-full z-40 bottom-3">
       <div className="max-w-sm mx-auto px-6">
         <div className="bg-white/50 backdrop-blur-lg rounded-full shadow-lg border border-black/20">
           <div className="flex items-center justify-around p-1">
             {tabs.map((tab) => {
               const Icon = tab.icon;
-              const isActive = activeTab === tab.id;
+              const isActive = pathname === tab.path;
 
               return (
                 <button
@@ -35,12 +47,12 @@ function FooterBar() {
                   className={`w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 ${
                     isActive
                       ? "bg-linear-to-br from-red-600 to-pink-800 text-white -translate-y-4 shadow-lg"
-                      : "bg-black-100 hover:bg-black-200"
+                      : "bg-transparent hover:bg-black/5"
                   }`}
                 >
                   <Icon
                     className={`w-6 h-6 ${
-                      isActive ? "text-white" : "text-black-600"
+                      isActive ? "text-white" : "text-gray-600"
                     }`}
                   />
                 </button>
