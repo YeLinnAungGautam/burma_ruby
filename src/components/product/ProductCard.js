@@ -17,8 +17,10 @@ export default function ProductCard({ product }) {
 
   // Get badge text
   const getBadges = () => {
+    console.log(product, "this is product");
+
     const badges = [];
-    if (product.features?.pigeonBlood) badges.push("Pigeon Blood");
+    badges.push(product.treatment?.heated ? "Heated" : "Natural");
 
     if (product.features?.certified) badges.push("Certified");
     return badges;
@@ -44,7 +46,7 @@ export default function ProductCard({ product }) {
 
           {/* Badges */}
           {getBadges().length > 0 && (
-            <div className="absolute bottom-0 right-2 flex flex-col gap-2">
+            <div className="absolute bottom-2 right-2 flex flex-col gap-1">
               {getBadges()
                 .slice(0, 2)
                 .map((badge, index) => (
@@ -91,7 +93,7 @@ export default function ProductCard({ product }) {
 
           {/* Origin */}
           {product.origin?.country && (
-            <p className="text-xs text-gray-500">
+            <p className="text-xs text-gray-500 line-clamp-1">
               {product.origin.region}
               {product.origin.region && ", "} {product.origin.country}
             </p>
