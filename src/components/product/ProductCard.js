@@ -53,7 +53,7 @@ export default function ProductCard({ product }) {
                 .map((badge, index) => (
                   <span
                     key={index}
-                    className="inline-block bg-red-800/50 backdrop-blur-xl text-white px-3 py-1 rounded-full text-xs font-medium shadow-lg"
+                    className="inline-block bg-red-600/80 backdrop-blur-xl text-white px-3 py-1 rounded-full text-xs font-medium shadow-lg"
                   >
                     {badge}
                   </span>

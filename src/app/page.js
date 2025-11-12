@@ -17,10 +17,10 @@ export default function Home() {
 
       <FooterBar />
 
-      <CSSDiamondBackground />
+      {/* <CSSDiamondBackground /> */}
 
       {/* Hero Section - Apple Style */}
-      <section className="relative min-h-[50vh] hidden md:flex flex-col items-center justify-center text-white overflow-hidden pt-20">
+      <section className="relative min-h-[50vh] hidden md:flex flex-col items-center justify-center text-black overflow-hidden pt-20">
         <div className="absolute inset-0"></div>
 
         {/* Main Hero Content */}

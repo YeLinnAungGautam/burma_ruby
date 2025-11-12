@@ -20,15 +20,15 @@ export default function CategorySlider({ categories }) {
     <div className="relative max-w-3xl mx-auto">
       {/* Active Category Display - Apple Style */}
       <div className="text-center mb-10 px-4">
-        <h2 className="text-3xl md:text-4xl lg:text-6xl capitalize font-semibold tracking-tight text-white mb-2 md:mb-4 lg:mb-6 transition-all duration-500">
+        <h2 className="text-3xl md:text-4xl lg:text-6xl capitalize font-semibold tracking-tight text-black mb-2 md:mb-4 lg:mb-6 transition-all duration-500">
           {activeCategory?.name}
         </h2>
-        <p className="text-base md:text-base lg:text-lg font-light text-white/90 max-w-3xl mx-auto mb-5 md:mb-6 lg:mb-8 leading-relaxed transition-all duration-500">
+        <p className="text-base md:text-base lg:text-lg font-light text-black/90 max-w-3xl mx-auto mb-5 md:mb-6 lg:mb-8 leading-relaxed transition-all duration-500">
           Explore our {activeCategory?.name} collection
         </p>
         <a
           href={`/products?category=${activeCategory?.slug}`}
-          className="inline-flex items-center gap-2  font-medium text-white bg-white/5 hover:bg-white/20 backdrop-blur-sm px-8 py-4 text-sm md:text-base lg:text-lg rounded-full transition-all duration-300 border border-white/20"
+          className="inline-flex items-center gap-2  font-medium text-black bg-black/5 hover:bg-black/20 backdrop-blur-sm px-8 py-4 text-sm md:text-base lg:text-lg rounded-full transition-all duration-300 border border-black/20"
         >
           Shop {activeCategory?.name}
           <svg
@@ -56,7 +56,7 @@ export default function CategorySlider({ categories }) {
               onClick={() => handleCategoryClick(index)}
               className={`group relative aspect-square min-w-[150px] rounded-3xl overflow-hidden transition-all duration-500 ${
                 activeIndex === index
-                  ? "ring-2 ring-white/60 shadow-xl scale-[1.02]"
+                  ? "ring-2 ring-black/60 shadow-xl scale-[1.02]"
                   : "hover:scale-[1.02] hover:shadow-xl"
               }`}
             >

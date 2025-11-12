@@ -106,7 +106,7 @@ export default function ProductsCarouselPage() {
 
   if (loading) {
     return (
-      <div className="min-h-[90vh] bg-white flex flex-col">
+      <div className="min-h-[85vh] bg-white flex flex-col">
         <div className="flex-1 flex items-center justify-center">
           <div className="text-center">
             <div className="w-16 h-16 border-4 border-red-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
@@ -122,7 +122,7 @@ export default function ProductsCarouselPage() {
 
   if (!currentProduct) {
     return (
-      <div className="min-h-[90vh] bg-white flex flex-col">
+      <div className="min-h-[85vh] bg-white flex flex-col">
         <div className="flex-1 flex items-center justify-center">
           <p className="text-gray-600">No products available</p>
         </div>
@@ -132,7 +132,7 @@ export default function ProductsCarouselPage() {
   }
 
   return (
-    <div className="min-h-[90vh] bg-white flex flex-col">
+    <div className="min-h-[85vh] bg-white flex flex-col">
       {/* Main Carousel Container */}
       <div className="flex-1 relative py-4 md:py-8 lg:py-12 overflow-hidden flex items-center">
         <div
@@ -225,8 +225,8 @@ function ProductCarouselCard({ product }) {
             <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 line-clamp-2 flex-1 min-w-0">
               {product.name}
             </h2>
-            <span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-full whitespace-nowrap shrink-0 ml-2">
-              {product.sku}
+            <span className="text-xs text-white bg-red-600 px-2 py-1 rounded-full whitespace-nowrap shrink-0 ml-2">
+              {product.treatment?.heated ? "Heated" : "Natural"}
             </span>
           </div>
           {product.color?.grade && (
