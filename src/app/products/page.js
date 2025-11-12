@@ -106,7 +106,7 @@ export default function ProductsCarouselPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-white flex flex-col">
+      <div className="min-h-[90vh] bg-white flex flex-col">
         <div className="flex-1 flex items-center justify-center">
           <div className="text-center">
             <div className="w-16 h-16 border-4 border-red-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
@@ -122,7 +122,7 @@ export default function ProductsCarouselPage() {
 
   if (!currentProduct) {
     return (
-      <div className="min-h-screen bg-white flex flex-col">
+      <div className="min-h-[90vh] bg-white flex flex-col">
         <div className="flex-1 flex items-center justify-center">
           <p className="text-gray-600">No products available</p>
         </div>
@@ -132,7 +132,7 @@ export default function ProductsCarouselPage() {
   }
 
   return (
-    <div className="min-h-screen bg-white flex flex-col">
+    <div className="min-h-[90vh] bg-white flex flex-col">
       {/* Main Carousel Container */}
       <div className="flex-1 relative py-4 md:py-8 lg:py-12 overflow-hidden flex items-center">
         <div
@@ -155,7 +155,7 @@ export default function ProductsCarouselPage() {
           <button
             onClick={goToPrevious}
             disabled={isTransitioning}
-            className="hidden md:flex absolute left-4 lg:left-8 top-1/2 -translate-y-1/2 w-12 h-12 lg:w-14 lg:h-14 bg-white/80 backdrop-blur-lg rounded-full items-center justify-center shadow-xl hover:bg-white hover:scale-110 transition-all disabled:opacity-50 disabled:cursor-not-allowed z-10"
+            className="flex absolute left-2 lg:left-8 top-1/3 -translate-y-1/3 w-8 h-8 md:w-14 md:h-14 bg-white/80 backdrop-blur-lg rounded-full items-center justify-center shadow-xl hover:bg-white hover:scale-110 transition-all disabled:opacity-50 disabled:cursor-not-allowed z-10"
           >
             <ChevronLeft className="w-5 h-5 lg:w-6 lg:h-6 text-gray-900" />
           </button>
@@ -163,7 +163,7 @@ export default function ProductsCarouselPage() {
           <button
             onClick={goToNext}
             disabled={isTransitioning}
-            className="hidden md:flex absolute right-4 lg:right-8 top-1/2 -translate-y-1/2 w-12 h-12 lg:w-14 lg:h-14 bg-white/80 backdrop-blur-lg rounded-full items-center justify-center shadow-xl hover:bg-white hover:scale-110 transition-all disabled:opacity-50 disabled:cursor-not-allowed z-10"
+            className="flex absolute right-2 lg:right-8 top-1/3 -translate-y-1/3 w-8 h-8 md:w-14 md:h-14 bg-white/80 backdrop-blur-lg rounded-full items-center justify-center shadow-xl hover:bg-white hover:scale-110 transition-all disabled:opacity-50 disabled:cursor-not-allowed z-10"
           >
             <ChevronRight className="w-5 h-5 lg:w-6 lg:h-6 text-gray-900" />
           </button>
