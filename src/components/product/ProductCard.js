@@ -108,10 +108,10 @@ export default function ProductCard({ product }) {
 
           {/* Price */}
           <div className="pt-1">
-            {/* <p className="text-xl font-semibold text-gray-900 line-clamp-1 group-hover:text-ruby-600 transition-colors">
+            <p className="text-xl font-semibold text-gray-900 line-clamp-1 group-hover:text-ruby-600 transition-colors">
               {formatPrice(product.price.amount, product.price.currency)}
-            </p> */}
-            {/* {product.price.pricePerCarat && (
+            </p>
+            {product.price.pricePerCarat && (
               <p className="text-xs text-gray-500">
                 {formatPrice(
                   product.price.pricePerCarat,
@@ -119,7 +119,7 @@ export default function ProductCard({ product }) {
                 )}
                 /ct
               </p>
-            )} */}
+            )}
           </div>
         </div>
       </div>

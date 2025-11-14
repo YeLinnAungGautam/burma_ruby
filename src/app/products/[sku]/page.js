@@ -304,7 +304,7 @@ function Page() {
               </div>
 
               {/* Price */}
-              {/* <div className="py-6 border-y border-gray-200">
+              <div className="py-6 border-y border-gray-200">
                 <div className="flex items-baseline gap-3">
                   {product?.price?.compareAtPrice && (
                     <span className="text-lg text-gray-400 line-clamp-1 line-through">
@@ -323,7 +323,7 @@ function Page() {
                   {formatPrice(product?.price?.pricePerCarat)}{" "}
                   {product?.price?.currency} per carat
                 </p>
-              </div> */}
+              </div>
 
               {/* SKU */}
               <p className="text-sm text-gray-500 text-center">
