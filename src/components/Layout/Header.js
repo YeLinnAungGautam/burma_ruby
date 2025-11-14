@@ -34,7 +34,7 @@ function Header() {
     <>
       <header className="bg-white/60 backdrop-blur-lg fixed w-full z-40 top-0 shadow">
         <div className="max-w-4xl flex justify-between items-center mx-auto py-2 px-4">
-          <div className="flex justify-start items-center gap-x-2">
+          <Link href="/" className="flex justify-start items-center gap-x-2">
             <div className="w-6 mx-auto h-6 rounded-lg overflow-hidden relative">
               <Image
                 src="/logo.png"
@@ -45,7 +45,7 @@ function Header() {
               />
             </div>
             <h1 className="text-lg font-bold text-gray-900">Burma Rubies</h1>
-          </div>
+          </Link>
 
           <div className="flex justify-end items-center gap-x-4">
             <button

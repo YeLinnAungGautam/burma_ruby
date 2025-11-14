@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ChevronLeft, Search } from "lucide-react";
 import { useRouter } from "next/navigation";
+import FooterBar from "@/components/Layout/FooterBar";
 
 function MessagePage() {
   const [selectedConversation, setSelectedConversation] = useState(null);
@@ -153,8 +154,11 @@ function MessagePage() {
   };
 
   return (
-    <div className="h-screen bg-white flex overflow-hidden">
+    <div className="h-screen bg-white relative flex overflow-hidden">
       {/* header */}
+
+      {/* footer */}
+      <FooterBar />
 
       {/* Sidebar - Conversations List */}
       <div
@@ -184,28 +188,20 @@ function MessagePage() {
           </button>
         </div>
 
-        <div className="lg:hidden fixed bottom-6  left-0 right-0 z-40 px-4">
-          <div className="w-full md:w-2xl mx-auto flex justify-between items-center">
-            <div
-              onClick={() => router.back()}
-              className=" p-4 bg-white/50 backdrop-blur-lg rounded-full shadow-lg border border-black/20 flex items-center justify-center"
-            >
-              <ChevronLeft className="w-6 h-6 text-black" />
-            </div>
-
-            <div className="relative bg-white/50 backdrop-blur-lg rounded-full shadow-lg border border-black/20 flex items-center justify-center gap-2 py-2 w-2xl">
-              <input
-                type="text"
-                placeholder="Search"
-                className="w-full  rounded-lg pl-16 pr-4 py-1.5 text-lg focus:outline-none "
-              />
-              <Search className="w-6 h-6 absolute left-4 top-4 text-black" />
-            </div>
-          </div>
-        </div>
-
         {/* Conversations List */}
         <div className="flex-1 overflow-y-auto pt-2">
+          <div className="p-4">
+            <div className="w-full flex justify-between items-center">
+              <div className="relative bg-white/50 backdrop-blur-lg rounded-full shadow-lg border border-black/20 flex items-center justify-center gap-2 py-2 w-2xl">
+                <input
+                  type="text"
+                  placeholder="Search"
+                  className="w-full  rounded-lg pl-16 pr-4 py-1.5 text-lg focus:outline-none "
+                />
+                <Search className="w-6 h-6 absolute left-4 top-4 text-black" />
+              </div>
+            </div>
+          </div>
           {conversations.map((conversation) => (
             <button
               key={conversation.id}

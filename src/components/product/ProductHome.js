@@ -178,8 +178,8 @@ export default function ProductHome() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <div className="bg-gradient-to-b from-gray-50 to-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 md:pt-3 pb-10">
+      <div className="bg-linear-to-b from-gray-50 to-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 md:pt-3 pb-10">
           <div className="text-center block md:hidden">
             <h1 className="text-5xl md:text-7xl lg:text-8xl max-w-2xl mx-auto font-semibold tracking-tight leading-[1.1] mb-4">
               Burma Rubies
