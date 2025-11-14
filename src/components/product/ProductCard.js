@@ -13,6 +13,9 @@ export default function ProductCard({ product }) {
     if (currency === "MMK") {
       return `${price.toLocaleString()} MMK`;
     }
+    if (currency === "THB") {
+      return `฿${price.toLocaleString()}`;
+    }
     return `$${price.toLocaleString()}`;
   };
 
