@@ -158,7 +158,7 @@ function MessagePage() {
       {/* header */}
 
       {/* footer */}
-      <FooterBar />
+      {!selectedConversation && <FooterBar />}
 
       {/* Sidebar - Conversations List */}
       <div

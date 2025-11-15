@@ -6,21 +6,11 @@ function page() {
   return (
     <div className="min-h-screen bg-linear-to-br from-gray-50 to-gray-100 py-8 ">
       <Header />
-      <div className="max-w-4xl pb-20 px-4 pt-16 mx-auto">
-        {/* Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-semibold tracking-tight mb-2 leading-[1.1]">
-            Profile
-          </h1>
-          <p className="text-gray-600">
-            This is just a placeholder for the profile page.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="max-w-4xl pb-20 px-4 pt-8 mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
           {/* Left Sidebar - Profile Summary */}
           <div className="lg:col-span-1">
-            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sticky top-8">
+            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sticky top-16">
               {/* Profile Image */}
               <div className="flex justify-center mb-6">
                 <div className="relative">
@@ -48,7 +38,7 @@ function page() {
           </div>
 
           {/* Main Content */}
-          <div className="lg:col-span-2 space-y-6">
+          <div className="lg:col-span-2 space-y-4">
             {/* Personal Information Card */}
             <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
               <div className="px-6 py-4 border-b border-gray-100">

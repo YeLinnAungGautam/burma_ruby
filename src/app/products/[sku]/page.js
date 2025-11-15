@@ -199,7 +199,7 @@ function Page() {
                     alt={selectedMedia.alt || product?.name}
                     width={800}
                     height={800}
-                    className="w-full h-full object-contain p-8"
+                    className="w-full h-full object-contain "
                   />
                 )}
                 {selectedMediaType === "video" && selectedMedia?.url && (

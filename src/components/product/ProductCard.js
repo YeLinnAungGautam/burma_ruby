@@ -37,7 +37,8 @@ export default function ProductCard({ product }) {
   };
 
   // Cycle through images
-  const handleImageCycle = () => {
+  const handleImageCycle = (e) => {
+    e.preventDefault(); // Prevent link navigation
     setCurrentImageIndex((prev) => (prev + 1) % images.length);
   };
 
@@ -52,7 +53,8 @@ export default function ProductCard({ product }) {
         {/* Image Container */}
         <div
           className="relative aspect-square bg-gray-50 rounded-3xl overflow-hidden mb-4"
-          onMouseEnter={handleImageCycle}
+          onMouseEnter={images.length > 1 ? handleImageCycle : undefined}
+          onClick={images.length > 1 ? handleImageCycle : undefined}
         >
           <Image
             src={mainImage.url}
@@ -64,12 +66,12 @@ export default function ProductCard({ product }) {
 
           {/* Image indicators */}
           {images.length > 1 && (
-            <div className="absolute bottom-2 left-2 flex gap-1">
+            <div className="absolute bottom-4 left-4 flex gap-1 z-20">
               {images.map((_, index) => (
                 <div
                   key={index}
                   className={`h-1.5 w-1.5 rounded-full transition-colors ${
-                    index === currentImageIndex ? "bg-black" : "bg-black/40"
+                    index === currentImageIndex ? "bg-black/60" : "bg-black/40"
                   }`}
                 />
               ))}
@@ -78,7 +80,7 @@ export default function ProductCard({ product }) {
 
           {/* Badges */}
           {getBadges().length > 0 && (
-            <div className="absolute bottom-2 right-2 flex flex-col gap-1">
+            <div className="absolute bottom-2 right-2 flex flex-col gap-1 z-20">
               {getBadges()
                 .slice(0, 2)
                 .map((badge, index) => (
@@ -94,7 +96,7 @@ export default function ProductCard({ product }) {
 
           {/* Status Badge */}
           {product.status === "sold" && (
-            <div className="absolute inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center">
+            <div className="absolute inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-20">
               <span className="bg-white text-gray-900 px-6 py-2 rounded-full text-sm font-semibold">
                 Sold
               </span>

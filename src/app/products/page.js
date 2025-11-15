@@ -133,6 +133,9 @@ export default function ProductsCarouselPage() {
 
   return (
     <div className="min-h-[85vh] bg-white flex flex-col">
+      <div className="flex-1 flex items-center justify-center pt-2">
+        <p className=" text-xl font-semibold">Discover Rare Gems</p>
+      </div>
       {/* Main Carousel Container */}
       <div className="flex-1 relative py-4 md:py-8 lg:py-12 overflow-hidden flex items-center">
         <div
@@ -192,6 +195,11 @@ function ProductCarouselCard({ product }) {
           priority
           sizes="(max-width: 640px) 100vw, (max-width: 768px) 80vw, (max-width: 1024px) 60vw, 40vw"
         />
+        <div className=" absolute bottom-2 right-2">
+          <span className="text-xs text-white bg-red-600 px-2 py-1 rounded-full whitespace-nowrap shrink-0 ml-2">
+            {product.treatment?.heated ? "Heated" : "Natural"}
+          </span>
+        </div>
 
         {/* Floating Action Buttons */}
         <div className="absolute top-3 right-3 sm:top-4 sm:right-4 flex flex-col gap-2">
@@ -225,9 +233,6 @@ function ProductCarouselCard({ product }) {
             <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 line-clamp-2 flex-1 min-w-0">
               {product.name}
             </h2>
-            <span className="text-xs text-white bg-red-600 px-2 py-1 rounded-full whitespace-nowrap shrink-0 ml-2">
-              {product.treatment?.heated ? "Heated" : "Natural"}
-            </span>
           </div>
           {product.color?.grade && (
             <p className="text-xs sm:text-sm font-medium text-red-600 uppercase tracking-wide">
@@ -284,7 +289,7 @@ function ProductCarouselCard({ product }) {
         {/* Price & CTA */}
         <div className="flex items-center justify-center pt-3 sm:pt-4 border-t border-gray-100">
           <Link href={`/products/${product.sku}`} className="w-full max-w-xs">
-            <button className="w-full px-6 py-3 sm:px-10 sm:py-3 bg-gradient-to-br from-red-600 to-pink-600 text-white text-sm sm:text-base rounded-full font-semibold hover:shadow-lg hover:scale-105 transition-all active:scale-95">
+            <button className="w-full px-6 py-3 sm:px-10 sm:py-3 bg-linear-to-br from-red-600 to-pink-600 text-white text-sm sm:text-base rounded-full font-semibold hover:shadow-lg hover:scale-105 transition-all active:scale-95">
               View Details
             </button>
           </Link>

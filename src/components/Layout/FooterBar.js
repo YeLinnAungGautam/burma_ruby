@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Home, MessageCircle, User, Gem } from "lucide-react";
+import { MessageCircle, User, Gem, Search } from "lucide-react";
 import { useRouter, usePathname } from "next/navigation";
 
 function FooterBar() {
@@ -9,8 +9,8 @@ function FooterBar() {
   const pathname = usePathname(); // Use usePathname hook instead of router.pathname
 
   const tabs = [
-    { id: "home", icon: Home, path: "/" },
-    { id: "product", icon: Gem, path: "/products" },
+    { id: "home", icon: Gem, path: "/" },
+    { id: "product", icon: Search, path: "/products" },
     { id: "message", icon: MessageCircle, path: "/messages" },
     { id: "profile", icon: User, path: "/profile" },
   ];
