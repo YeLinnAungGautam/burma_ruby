@@ -1,12 +1,18 @@
+"use client";
 import Link from "next/link";
 import Image from "next/image";
 import { BadgeCheckIcon } from "lucide-react";
+import { useState } from "react";
 
 export default function ProductCard({ product }) {
-  const mainImage = product.images?.[0] || {
-    url: "/images/placeholder.jpg",
-    alt: product.name,
-  };
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const images =
+    product.images?.length > 0
+      ? product.images
+      : [{ url: "/images/placeholder.jpg", alt: product.name }];
+
+  const mainImage = images[currentImageIndex];
 
   // Format price with currency
   const formatPrice = (price, currency) => {
@@ -30,6 +36,11 @@ export default function ProductCard({ product }) {
     return badges;
   };
 
+  // Cycle through images
+  const handleImageCycle = () => {
+    setCurrentImageIndex((prev) => (prev + 1) % images.length);
+  };
+
   return (
     <Link href={`/products/${product.sku}`}>
       <div className="group cursor-pointer pb-2 rounded-3xl relative overflow-hidden">
@@ -39,7 +50,10 @@ export default function ProductCard({ product }) {
         </div>
 
         {/* Image Container */}
-        <div className="relative aspect-square bg-gray-50 rounded-3xl overflow-hidden mb-4">
+        <div
+          className="relative aspect-square bg-gray-50 rounded-3xl overflow-hidden mb-4"
+          onMouseEnter={handleImageCycle}
+        >
           <Image
             src={mainImage.url}
             alt={mainImage.alt || product.name}
@@ -47,6 +61,20 @@ export default function ProductCard({ product }) {
             className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
             sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
           />
+
+          {/* Image indicators */}
+          {images.length > 1 && (
+            <div className="absolute bottom-2 left-2 flex gap-1">
+              {images.map((_, index) => (
+                <div
+                  key={index}
+                  className={`h-1.5 w-1.5 rounded-full transition-colors ${
+                    index === currentImageIndex ? "bg-black" : "bg-black/40"
+                  }`}
+                />
+              ))}
+            </div>
+          )}
 
           {/* Badges */}
           {getBadges().length > 0 && (
